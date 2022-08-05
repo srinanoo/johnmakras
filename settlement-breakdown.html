@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+<title>Settlement Breakdown</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="autoNumeric.js"></script>
+
+<script>
+$(document).ready(function() {
+	$('.amt').autoNumeric('init');
+
+	const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
+
+	$(".purchase_price, .deposit_paid, .adjustments, .conveyancing_fee, .voi_fee, .trust_account_handling_fee, .pexa_fee, .stamp_duty, .withdrawal_of_caveat_fee, .land_registration_fee, .stewart_title, .total_proceeds").on('change', function(e) {
+		purchase_price = $('.purchase_price').val();
+		(purchase_price!="") ? purchase_price = parseFloat( purchase_price.replace( /\$|,/g, '') ) : purchase_price = 0;
+
+		deposit_paid = $('.deposit_paid').val();
+		(deposit_paid!="") ? deposit_paid = parseFloat( deposit_paid.replace( /\$|,/g, '') ) : deposit_paid = 0;
+
+		balance_remaining = parseFloat(purchase_price - deposit_paid);
+		$('.balance_remaining').val(formatter.format(parseFloat(balance_remaining).toFixed(2)));
+
+		adjustments = $('.adjustments').val();
+		(adjustments!="") ? adjustments = parseFloat( adjustments.replace( /\$|,/g, '') ) : adjustments = 0;
+
+		balance_due = parseFloat(balance_remaining - adjustments);
+		$('.balance_due').val(formatter.format(parseFloat(balance_due).toFixed(2)));
+		
+		conveyancing_fee = $('.conveyancing_fee').val();
+		(conveyancing_fee!="") ? conveyancing_fee = parseFloat( conveyancing_fee.replace( /\$|,/g, '') ) : conveyancing_fee = 0;
+		
+		voi_fee = $('.voi_fee').val();
+		(voi_fee!="") ? voi_fee = parseFloat( voi_fee.replace( /\$|,/g, '') ) : voi_fee = 0;
+		
+		trust_account_handling_fee = $('.trust_account_handling_fee').val();
+		(trust_account_handling_fee!="") ? trust_account_handling_fee = parseFloat( trust_account_handling_fee.replace( /\$|,/g, '') ) : trust_account_handling_fee = 0;
+		
+		pexa_fee = $('.pexa_fee').val();
+		(pexa_fee!="") ? pexa_fee = parseFloat( pexa_fee.replace( /\$|,/g, '') ) : pexa_fee = 0;
+		
+		stamp_duty = $('.stamp_duty').val();
+		(stamp_duty!="") ? stamp_duty = parseFloat( stamp_duty.replace( /\$|,/g, '') ) : stamp_duty = 0;
+		
+		withdrawal_of_caveat_fee = $('.withdrawal_of_caveat_fee').val();
+		(withdrawal_of_caveat_fee!="") ? withdrawal_of_caveat_fee = parseFloat( withdrawal_of_caveat_fee.replace( /\$|,/g, '') ) : withdrawal_of_caveat_fee = 0;
+		
+		land_registration_fee = $('.land_registration_fee').val();
+		(land_registration_fee!="") ? land_registration_fee = parseFloat( land_registration_fee.replace( /\$|,/g, '') ) : land_registration_fee = 0;
+		
+		stewart_title = $('.stewart_title').val();
+		(stewart_title!="") ? stewart_title = parseFloat( stewart_title.replace( /\$|,/g, '') ) : stewart_title = 0;
+		
+		total_due = parseFloat(balance_due + conveyancing_fee + voi_fee + trust_account_handling_fee + pexa_fee + stamp_duty + withdrawal_of_caveat_fee + land_registration_fee + stewart_title);
+		$('.total_due').val(formatter.format(parseFloat(total_due).toFixed(2)));
+		
+		total_proceeds = $('.total_proceeds').val();
+		(total_proceeds!="") ? total_proceeds = parseFloat( total_proceeds.replace( /\$|,/g, '') ) : total_proceeds = 0;
+		
+		shortfall_amount = parseFloat(total_due - total_proceeds);
+		$('.shortfall_amount').val(formatter.format(parseFloat(shortfall_amount).toFixed(2)));
+	});
+});
+</script>
+
+<style type="text/css">
+h3 { margin:0; }
+.main-content { width: 50%; margin:0 auto; }
+.main-content input[type="text"] { padding: 5px !important; margin-top:0 !important; border-top: 0 !important; border-left: 0 !important; border-bottom:1px solid #000; border-right:0 !important; background: none !important; }
+.main-content input[type="text"]:focus { outline: none; }
+.main-content .submit { line-height: 36px; background: #0e142e !important; padding: 4px 16px; text-decoration: none; color: #fff; margin-top: 20px; border: none; text-align:center; }
+.main-content .submit:hover { background:#ccc !important; color:#000; cursor:pointer; }
+.main-content select { padding:0; margin:0; background:none; }
+.aligncenter { text-align:center !important; }
+.border-bottom { border-bottom: solid; }
+@media print {
+    .main-content { width: 100%; }
+}
+@media screen and (max-width: 1000px) {
+    .main-content { width: 100%; }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class = "main-content" id="maincontent">
+
+	<br />
+	<h2 class="aligncenter">FUNDS REQUIRED AT THE DAY OF SETTLEMENT</h2>
+
+	<table width="100%" class="tabl" border="0">
+		<tr>
+			<td width="40"><strong>For:</strong></td>
+			<td><input type="text" tabindex="0" style="width: 98%;" /></td>
+		</tr>
+	</table><br>
+
+	<h3 class="border-bottom">Funds Required:</h3><br>
+
+	<table width="100%" class="tabl" border="0">
+		<tr>
+			<td colspan="2"><strong>Purchase Price:</strong></td>
+			<td colspan="2">$<input type="text" class="amt purchase_price" tabindex="1" /></td>
+		</tr>
+		<tr>
+			<td align="right">Less:&nbsp;</td>
+			<td>Deposit Paid:</td>
+			<td colspan="2">$<input type="text" class="amt deposit_paid" tabindex="2" /></td>
+		</tr>
+		<tr>
+			<td width="10%">&nbsp;</td>
+			<td width="25%">Balance Remaining:</td>
+			<td width="25%">&nbsp;</td>
+			<td width="25%"><input type="text" class="amt balance_remaining" style="text-align:right; background:rgba(179, 181, 178, 0.218) !important;" readonly /></td>
+		</tr>
+		<tr>
+			<td align="right">Less:&nbsp;</td>
+			<td>Adjustments:</td>
+			<td colspan="2">$<input type="text" class="amt adjustments" tabindex="3" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><strong>Balance Due:</strong></td>
+			<td>&nbsp;</td>
+			<td><input type="text" class="amt balance_due" style="text-align:right; background:rgba(179, 181, 178, 0.218) !important;" readonly /></td>
+		</tr>
+		<tr>
+			<td style="border-bottom: solid;" colspan="4"><br><h3 style="margin-left: 55px;">Other Fees and Charges at Settlement:</h3></td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="right">Add:&nbsp;</td>
+			<td>Conveyancing Fee:</td>
+			<td colspan="2">$<input type="text" class="amt conveyancing_fee" tabindex="4" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>VOI Fee:</td>
+			<td colspan="2">$<input type="text" class="amt voi_fee" tabindex="5" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>Trust Account Handling Fee:</td>
+			<td colspan="2">$<input type="text" class="amt trust_account_handling_fee" tabindex="6" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>PEXA Fee:</td>
+			<td colspan="2">$<input type="text" class="amt pexa_fee" tabindex="7" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>Stamp Duty:</td>
+			<td colspan="2">$<input type="text" class="amt stamp_duty" tabindex="8" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>Withdrawal of Caveat Fee:</td>
+			<td colspan="2">$<input type="text" class="amt withdrawal_of_caveat_fee" tabindex="9" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>Land Registration Fee:</td>
+			<td colspan="2">$<input type="text" class="amt land_registration_fee" tabindex="10" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>Stewart Title:</td>
+			<td colspan="2">$<input type="text" class="amt stewart_title" tabindex="11" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><strong>Total Due at Settlement:</strong></td>
+			<td>&nbsp;</td>
+			<td><input type="text" id="total_due" class="amt total_due" style="text-align:right; background:rgba(179, 181, 178, 0.218) !important;" readonly /></td>
+		</tr>
+		<tr>
+			<td align="right">Less:&nbsp;</td>
+			<td>Total Proceeds (from Lender):</td>
+			<td colspan="2">$<input type="text" class="amt total_proceeds" tabindex="12" /></td>
+		</tr>
+		<tr>
+			<td colspan="2"><h2 class="aligncenter">Shortfall Amount</h2></td>
+			<td colspan="2"><input type="text" class="amt shortfall_amount" style="width: 98%; font-size: 1.5rem; background:rgba(179, 181, 178, 0.218) !important;" readonly /></td>
+		</tr>
+	</table>
+
+	<br />
+	<h4>*Adjustments refer to the Council, Water, and Owners Corporation (if applicable) fees from the Settlement date until the end of each respective rating period.</h4>
+	<br /><br />
+
+</div> <!-- end of main content -->
+
+
+</body>
+</html>
