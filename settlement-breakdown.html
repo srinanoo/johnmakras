@@ -9,10 +9,14 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="autoNumeric.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.5.4"></script> -->
+
 
 <script>
 $(document).ready(function() {
 	$('.amt').autoNumeric('init');
+
+	// autoNumeric = new AutoNumeric(".amt", {'#1923': 'dollarNeg'});
 
 	const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
 
@@ -69,8 +73,9 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
+* { font-family: Arial, Helvetica, sans-serif; font-size: 12pt; }
 h3 { margin:0; }
-.main-content { width: 50%; margin:0 auto; }
+.main-content { width: 730px; margin:0 auto; }
 .main-content input[type="text"] { padding: 5px !important; margin-top:0 !important; border-top: 0 !important; border-left: 0 !important; border-bottom:1px solid #000; border-right:0 !important; background: none !important; }
 .main-content input[type="text"]:focus { outline: none; }
 .main-content .submit { line-height: 36px; background: #0e142e !important; padding: 4px 16px; text-decoration: none; color: #fff; margin-top: 20px; border: none; text-align:center; }
@@ -78,8 +83,86 @@ h3 { margin:0; }
 .main-content select { padding:0; margin:0; background:none; }
 .aligncenter { text-align:center !important; }
 .border-bottom { border-bottom: solid; }
+.box {
+	width: 120px;
+	border: 4px solid #004cff;
+	padding: 20px;
+	border-radius: 10px;
+	position: absolute;
+	margin-left: -190px;
+	margin-top: 250px;
+	min-height: 100px;
+}
+.box:focus, .box1:focus { outline: 0; }
+.sb1:before {
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-left: 20px solid #004cff;
+	border-right: 20px solid transparent;
+	border-top: 20px solid #004cff;
+	border-bottom: 20px solid transparent;
+	right: -41px;
+	top: 21px;
+}
+.sb1:after {
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-left: 17px solid #fff;
+	border-right: 17px solid transparent;
+	border-top: 17px solid #fff;
+	border-bottom: 17px solid transparent;
+	right: -31px;
+	top: 25px;
+}
+
+.box1 {
+	width: 120px;
+	border: 4px solid #004cff;
+	padding: 20px;
+	border-radius: 10px;
+	position: absolute;
+	margin-left: 750px;
+	margin-top: -80px;
+	min-height: 100px;
+}
+.sb2:before {
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-right: 20px solid #004cff;
+	border-left: 20px solid transparent;
+	border-top: 20px solid #004cff;
+	border-bottom: 20px solid transparent;
+	left: -41px;
+	top: 51px;
+}
+.sb2:after {
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-right: 17px solid #fff;
+	border-left: 17px solid transparent;
+	border-top: 17px solid #fff;
+	border-bottom: 17px solid transparent;
+	left: -31px;
+	top: 55px;
+}
 @media print {
-    .main-content { width: 100%; }
+    .main-content { width: 65%; }
+	.box { 
+		width: 70px;
+		margin-left: -130px;
+	}
+	.box1 {
+		width: 70px;
+		margin-left: 490px;
+	}
 }
 @media screen and (max-width: 1000px) {
     .main-content { width: 100%; }
@@ -92,7 +175,8 @@ h3 { margin:0; }
 
 <div class = "main-content" id="maincontent">
 
-	<br />
+	<div class="box sb1" contenteditable="true"></div>
+
 	<h2 class="aligncenter">FUNDS REQUIRED AT THE DAY OF SETTLEMENT</h2>
 
 	<table width="100%" class="tabl" border="0">
@@ -110,20 +194,20 @@ h3 { margin:0; }
 			<td colspan="2">$<input type="text" class="amt purchase_price" tabindex="1" /></td>
 		</tr>
 		<tr>
-			<td align="right">Less:&nbsp;</td>
+			<td align="right">&nbsp;</td>
 			<td>Deposit Paid:</td>
 			<td colspan="2">$<input type="text" class="amt deposit_paid" tabindex="2" /></td>
 		</tr>
 		<tr>
 			<td width="10%">&nbsp;</td>
-			<td width="25%">Balance Remaining:</td>
-			<td width="25%">&nbsp;</td>
-			<td width="25%"><input type="text" class="amt balance_remaining" style="text-align:right; background:rgba(179, 181, 178, 0.218) !important;" readonly /></td>
+			<td width="30%">Balance Remaining:</td>
+			<td width="30%">&nbsp;</td>
+			<td width="20%"><input type="text" class="amt balance_remaining" style="text-align:right; background:rgba(179, 181, 178, 0.218) !important;" readonly /></td>
 		</tr>
 		<tr>
-			<td align="right">Less:&nbsp;</td>
+			<td align="right">&nbsp;</td>
 			<td>Adjustments:</td>
-			<td colspan="2">$<input type="text" class="amt adjustments" tabindex="3" /></td>
+			<td colspan="2"><div style="margin-left:-10px;">- $<input type="text" class="amt adjustments" tabindex="3" /></div></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
@@ -132,7 +216,7 @@ h3 { margin:0; }
 			<td><input type="text" class="amt balance_due" style="text-align:right; background:rgba(179, 181, 178, 0.218) !important;" readonly /></td>
 		</tr>
 		<tr>
-			<td style="border-bottom: solid;" colspan="4"><br><h3 style="margin-left: 55px;">Other Fees and Charges at Settlement:</h3></td>
+			<td style="border-bottom: solid;" colspan="4"><br><h3>Other Fees and Charges at Settlement:</h3></td>
 		</tr>
 		<tr><td>&nbsp;</td></tr>
 		<tr>
@@ -182,19 +266,23 @@ h3 { margin:0; }
 			<td><input type="text" id="total_due" class="amt total_due" style="text-align:right; background:rgba(179, 181, 178, 0.218) !important;" readonly /></td>
 		</tr>
 		<tr>
-			<td align="right">Less:&nbsp;</td>
+			<td style="border-bottom: solid;" colspan="4"><br><h3>Funds to Complete:</h3></td>
+		</tr>
+		<tr>
+			<td align="right">&nbsp;</td>
 			<td>Total Proceeds (from Lender):</td>
 			<td colspan="2">$<input type="text" class="amt total_proceeds" tabindex="12" /></td>
 		</tr>
 		<tr>
-			<td colspan="2"><h2 class="aligncenter">Shortfall Amount</h2></td>
-			<td colspan="2"><input type="text" class="amt shortfall_amount" style="width: 98%; font-size: 1.5rem; background:rgba(179, 181, 178, 0.218) !important;" readonly /></td>
+			<td colspan="2"><h3 class="aligncenter">Client's Funds Required</h3></td>
+			<td colspan="2"><input type="text" class="amt shortfall_amount" style="width: 98%; font-size: 1rem; background:rgba(179, 181, 178, 0.218) !important;" readonly /></td>
 		</tr>
 	</table>
 
+	<div class="box1 sb2" contenteditable="true"></div>
+
 	<br />
 	<h4>*Adjustments refer to the Council, Water, and Owners Corporation (if applicable) fees from the Settlement date until the end of each respective rating period.</h4>
-	<br /><br />
 
 </div> <!-- end of main content -->
 
