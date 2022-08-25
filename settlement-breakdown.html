@@ -8,15 +8,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="autoNumeric.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.5.4"></script> -->
+<!-- <script src="autoNumeric.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/autonumeric@4.5.4"></script>
 
 
 <script>
 $(document).ready(function() {
-	$('.amt').autoNumeric('init');
+	// $('.amt').autoNumeric('init');
 
-	// autoNumeric = new AutoNumeric(".amt", {'#1923': 'dollarNeg'});
+	autoNumeric = new AutoNumeric(".amt", {'#1923': 'dollarNeg'});
 
 	const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
 
@@ -31,9 +31,11 @@ $(document).ready(function() {
 		$('.balance_remaining').val(formatter.format(parseFloat(balance_remaining).toFixed(2)));
 
 		adjustments = $('.adjustments').val();
+		(adjustments.indexOf("-")===0) ? adjustmentsOp = "-" : adjustmentsOp = "+";
 		(adjustments!="") ? adjustments = parseFloat( adjustments.replace( /\$|,/g, '') ) : adjustments = 0;
 
-		balance_due = parseFloat(balance_remaining - adjustments);
+		(adjustmentsOp=="+") ? balance_due = parseFloat(balance_remaining + adjustments) : balance_due = parseFloat(balance_remaining - Math.abs(adjustments));
+		console.log(adjustments);
 		$('.balance_due').val(formatter.format(parseFloat(balance_due).toFixed(2)));
 		
 		conveyancing_fee = $('.conveyancing_fee').val();
@@ -207,7 +209,7 @@ h3 { margin:0; }
 		<tr>
 			<td align="right">&nbsp;</td>
 			<td>Adjustments:</td>
-			<td colspan="2"><div style="margin-left:-10px;">- $<input type="text" class="amt adjustments" tabindex="3" /></div></td>
+			<td colspan="2">$<input type="text" class="amt adjustments" tabindex="3" /></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
