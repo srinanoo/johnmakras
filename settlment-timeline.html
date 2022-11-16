@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settlement Timeline</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        :root {
+            --bg0: #022b41;
+            --bg1: #145f75;
+            --green: #008000;
+            --white: #fff;
+            --red: #ff0000;
+        }
+        body, input {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1rem;
+        }
+        .timeline-box {
+            background: var(--bg0);
+            color: #fff;
+            padding: 20px;
+        }
+        .timeline-box h3 {
+            margin-top: 0;
+        }
+        .textright {
+            text-align: right;
+        }
+        .flex, .flex1, .flex2 {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        .flex2 {
+            align-items: center;
+            height: 100%;
+        }
+        .flex1 > div:first-child {
+            width: 12%;
+            align-self: center;
+        }
+        .flex1 > div:nth-child(2) {
+            width: 3%;
+        }
+        .flex1 > div:nth-child(3) {
+            width: 56%;
+            padding-left: 30px;
+            align-self: center;
+        }
+        .flex1 > div:last-child {
+            width: 25%;
+            align-self: center;
+        }
+        .flex:nth-child(2n+1) .flex1, .flex:nth-child(2n+1) :last-child {
+            background: var(--bg1);
+            border-radius: 10px;
+        }
+        .flex > div:first-child {
+            width: 58%;
+            padding: 8px;
+        }
+        .flex > div:nth-child(2) {
+            width: 2%;
+            background: var(--bg0);
+        }
+        .flex > div:last-child {
+            width: 40%;
+            padding: 20px;
+        }
+        input {
+            width: 90%;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            background: none;
+            color: inherit;
+            font-size: inherit;
+            font-family: inherit;
+        }
+        .dotted {
+            border-right: 7px dotted;
+            padding-right: 30px;
+        }
+        .fa-solid {
+            font-size: 1.25em;
+            margin-left: 23px;
+        }
+        .fa-solid:hover {
+            cursor: pointer;
+        }
+        .fa-circle-check {
+            background-color: var(--white);
+            color: var(--green);
+            border-radius: 50%;
+        }
+        .fa-circle-xmark {
+            background-color: var(--white);
+            color: var(--red);
+            border-radius: 50%;
+        }
+        .dt {
+            border: 0;
+            outline: 0;
+        }
+        .dtp {
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="timeline-box">
+        <h3>Your Settlement Timeline</h3>
+        <p class="textright">Comments</p>
+        <div class="flex">
+            <div class="flex1">
+                <div>
+                    &nbsp;
+                </div>
+                <div class="dotted">
+                    <div class="flex2"><i class="fa-solid fa-circle-check" id="1"></i></div>
+                </div>
+                <div>
+                    <div contenteditable="true" class="dt">Place Order</div>
+                </div>
+                <div>
+                    <input type="text" class="dtp" id="dtp1" value="11/14/2022 05:20pm">
+                </div>
+            </div>
+            <div></div>
+            <div>
+                <div contenteditable="true" class="dt">ENTER TEXT</div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="flex1">
+                <div>
+                    <input type="text" value="OCT 19">
+                </div>
+                <div class="dotted">
+                    <div class="flex2"><i class="fa-solid fa-circle-xmark" id="2"></i></div>
+                </div>
+                <div>
+                    <div contenteditable="true" class="dt">Provide Documents</div>
+                </div>
+                <div>
+                    <input type="text" class="dtp" id="dtp2" value="11/14/2022 05:20pm">
+                </div>
+            </div>
+            <div></div>
+            <div>
+                <div contenteditable="true" class="dt">ENTER TEXT</div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="flex1">
+                <div>
+                    <input type="text" value="OCT 20">
+                </div>
+                <div class="dotted">
+                    <div class="flex2"><i class="fa-solid fa-circle-xmark" id="3"></i></div>
+                </div>
+                <div>
+                    <div contenteditable="true" class="dt">Settlement Booking</div>
+                </div>
+                <div>
+                    <input type="text" class="dtp" id="dtp3" value="11/14/2022 05:20pm">
+                </div>
+            </div>
+            <div></div>
+            <div>
+                <div contenteditable="true" class="dt">ENTER TEXT</div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="flex1">
+                <div>
+                    <input type="text" value="OCT 21">
+                </div>
+                <div class="dotted">
+                    <div class="flex2"><i class="fa-solid fa-circle-xmark" id="4"></i></div>
+                </div>
+                <div>
+                    <div contenteditable="true" class="dt">Adjustments & Directions</div>
+                </div>
+                <div>
+                    <input type="text" class="dtp" id="dtp4" value="11/14/2022 05:20pm">
+                </div>
+            </div>
+            <div></div>
+            <div>
+                <div contenteditable="true" class="dt">ENTER TEXT</div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="flex1">
+                <div>
+                    <input type="text" value="OCT 22">
+                </div>
+                <div class="dotted">
+                    <div class="flex2"><i class="fa-solid fa-circle-xmark" id="5"></i></div>
+                </div>
+                <div>
+                    <div contenteditable="true" class="dt">Settlement</div>
+                </div>
+                <div>
+                    <input type="text" class="dtp" id="dtp5" value="11/14/2022 05:20pm">
+                </div>
+            </div>
+            <div></div>
+            <div>
+                <div contenteditable="true" class="dt">ENTER TEXT</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="datetimepicker/jquery.js"></script>
+    <script src="datetimepicker/build/jquery.datetimepicker.full.js"></script>
+    <script>
+        jQuery( document ).ready(function($) {
+            console.log( "ready!" );
+            $('#dtp1, #dtp2, #dtp3, #dtp4, #dtp5').datetimepicker({
+                minDate:0,
+                formatTime: 'g:ia',
+                format:'m/d/Y h:i a',
+                step:10
+            });
+        });
+        
+
+        let checkx = document.getElementsByClassName("fa-solid");
+        console.log(checkx.length)
+        for(i=0; i<checkx.length; i++) {
+            checkx[i].onclick = swapImg;
+        }
+
+        function swapImg(e) {
+            (e.target.classList.contains("fa-circle-check")) ? e.target.classList.replace("fa-circle-check", "fa-circle-xmark") : e.target.classList.replace("fa-circle-xmark", "fa-circle-check");
+        }
+    </script>
+</body>
+</html>
